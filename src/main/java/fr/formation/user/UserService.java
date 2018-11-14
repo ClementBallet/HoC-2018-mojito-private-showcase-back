@@ -1,5 +1,8 @@
 package fr.formation.user;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -8,9 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-
-import java.util.Collection;
-import java.util.List;
 
 /**
  * The type User service.
@@ -67,12 +67,87 @@ public class UserService implements UserDetailsService {
 	 * @param password the password
 	 * @param roles    the roles
 	 */
-	public void addNewUser(String username, String password, String... roles) {
+	public void addNewUser(Long username, String password, String... roles) {
 
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
 		user = userRepository.save(user);
+
+		for (String role : roles) {
+
+			UserRole userRole = new UserRole();
+			userRole.setRole(role);
+			userRole.setUserId(user.getId());
+
+			userRoleRepository.save(userRole);
+		}
+
+	}
+	
+	/**
+	 * get a new user with the user repository
+	 *
+	 * @param username the username
+	 * @param password the password
+	 * @param roles    the roles
+	 */
+	public void getUser(Long username, String password, String... roles) {
+
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user = userRepository.getOne(username);
+
+		for (String role : roles) {
+
+			UserRole userRole = new UserRole();
+			userRole.setRole(role);
+			userRole.setUserId(user.getId());
+
+			userRoleRepository.findRoleByUserName(role);
+		}
+
+	}
+	
+	/**
+	 * update user with the user repository
+	 *
+	 * @param username the username
+	 * @param password the password
+	 * @param roles    the roles
+	 */
+	public void updateUser(Long username, String password, String... roles) {
+
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		user = userRepository.getOne(username);
+
+		for (String role : roles) {
+
+			UserRole userRole = new UserRole();
+			userRole.setRole(role);
+			userRole.setUserId(user.getId());
+
+			userRoleRepository.save(userRole);
+		}
+
+	}
+	
+	/**
+	 * Add a new user with the user repository
+	 *
+	 * @param username the username
+	 * @param password the password
+	 * @param roles    the roles
+	 */
+	public void deleteUser(Long username, String password, String... roles) {
+
+		User user = new User();
+		user.getUsername(username);
+		user.setPassword(password);
+		user = userRepository.delete(user);
 
 		for (String role : roles) {
 
