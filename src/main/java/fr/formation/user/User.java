@@ -1,14 +1,10 @@
 package fr.formation.user;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,32 +20,32 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "pseudo")
-	private Long username;
+	@Column(name = "pseudo", nullable = false, unique = true)
+	private String username;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	@JsonIgnore
 	private String password;
 	
-	@Column(name = "email")
+	@Column(name = "email", nullable = false)
 	private String email;
 	
-	@Column(name = "ville")
+	@Column(name = "ville", nullable = false)
 	private String ville;
 	
-	@Column(name = "code_postaux")
+	@Column(name = "code_postaux", nullable = false)
 	private String code_postaux;
 	
-	@Column(name = "code_ville")
+	@Column(name = "code_ville", nullable = false)
 	private String code_ville;
 	
-	@Column(name = "code_departement")
+	@Column(name = "code_departement", nullable = true)
 	private String code_departement;
 	
-	@OneToOne(cascade = CascadeType.ALL, 
-            fetch = FetchType.LAZY)
-	@JoinColumn(name="Id_artist")
-	private String artiste;
+//	@OneToOne(cascade = CascadeType.ALL, 
+//            fetch = FetchType.LAZY)
+//	@JoinColumn(name="Id_artist")
+//	private Artiste artiste;
 
 	/**
 	 * Gets id.
@@ -74,7 +70,7 @@ public class User {
 	 *
 	 * @return the pseudo
 	 */
-	public Long getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -83,7 +79,7 @@ public class User {
 	 *
 	 * @param username the username
 	 */
-	public void setUsername(Long username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 
@@ -192,26 +188,26 @@ public class User {
 	 * @param code_departement the code_departement
 	 */
 	public void setCodeDepartement(String code_departement) {
-		this.code_ville = code_departement;
+		this.code_departement = code_departement;
 	}
 	
-	/**
-	 * Gets artiste.
-	 *
-	 * @return the artiste
-	 */
-	public String getArtiste() {
-		return artiste;
-	}
-	
-	/**
-	 * Sets artiste.
-	 *
-	 * @param artiste the artiste
-	 */
-	public void setArtiste(String artiste) {
-		this.artiste = artiste;
-	}
+//	/**
+//	 * Gets artiste.
+//	 *
+//	 * @return the artiste
+//	 */
+//	public Artiste getArtiste() {
+//		return artiste;
+//	}
+//	
+//	/**
+//	 * Sets artiste.
+//	 *
+//	 * @param artiste the artiste
+//	 */
+//	public void setArtiste(String artiste) {
+//		this.artiste = artiste;
+//	}
 	
 
 }

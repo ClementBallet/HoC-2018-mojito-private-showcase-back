@@ -33,5 +33,6 @@ public class Hello {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	//{{uri}}/users?username=toto2&password=azeaze&email=bo1b@gmail.com&ville=Lyon&code_postaux=69123&code_ville=52&code_departement=84
 
 }

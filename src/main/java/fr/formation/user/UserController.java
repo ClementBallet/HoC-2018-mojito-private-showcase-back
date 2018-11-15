@@ -1,6 +1,8 @@
 package fr.formation.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,67 +19,73 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 
 	/**
-	 * Signup.
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param roles    the roles
+	 * add new user.
+	 * 
+	 * @param username
+	 * @param password
+	 * @param email
+	 * @param ville
+	 * @param code_postaux
+	 * @param code_ville
+	 * @param code_departement
+	 * @param roles
 	 */
-	@PostMapping("/add/{userKey}")
-	public void signup(@PathVariable("userKey") String username, @RequestParam String password,
-										 @RequestParam String... roles) {
+	@PostMapping("")
+	public User signup(
+			@RequestParam(required = true) String username, 
+			@RequestParam(required = true) String password,
+			@RequestParam(required = true) String email, 
+			@RequestParam(required = true) String ville,
+			@RequestParam(required = true) String code_postaux, 
+			@RequestParam(required = true) String code_ville,
+			@RequestParam(required = true) String code_departement) {
 
-		userService.addNewUser(username, password, roles);
+		return userService.addNewUser(username, password, email, ville, code_postaux, code_ville, code_departement);
 
 	}
-	
+
 	/**
-	 * getUser.
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param roles    the roles
+	 * s get user.
+	 * 
+	 * @param id_user
 	 */
-	@PutMapping("/get/{userKey}")
-	public void getUser(@PathVariable("userKey") String username, @RequestParam String password,
-										 @RequestParam String... roles) {
+	@GetMapping("/{id_user}")
+	public User getUser(@PathVariable("id_user") Long id_user) {
 
-		userService.getUser(username, password, roles);
+		return userService.getUser(id_user);
 
 	}
-	
-	
+
 	/**
-	 * updateUser.
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param roles    the roles
+	 * update user.
+	 * 
+	 * @param id_user
+	 * @param ancien_password
+	 * @param nouveau_password
+	 * @param confirm_password
+	 * @param email
 	 */
-	@PutMapping("/update/{userKey}")
-	public void updateUser(@PathVariable("userKey") String username, @RequestParam String password,
-										 @RequestParam String... roles) {
+	@PutMapping("/{id_user}")
+	public void updateUser(@PathVariable("id_user") Long id_user, @RequestParam String ancien_password,
+			@RequestParam String nouveau_password, @RequestParam String confirm_password, @RequestParam String email) {
 
-		userService.updateUser(username, password, roles);
+		userService.updateUser(id_user, ancien_password, nouveau_password, confirm_password, email);
 
 	}
-	
+
 	/**
-	 * deleteUser.
-	 *
-	 * @param username the username
-	 * @param password the password
-	 * @param roles    the roles
+	 * delete user.
+	 * 
+	 * @param id_user
 	 */
-	@PutMapping("/delete/{userKey}")
-	public void deleteUser(@PathVariable("userKey") String username, @RequestParam String password,
-										 @RequestParam String... roles) {
+	@DeleteMapping("/{id_user}")
+	public void deleteUser(@PathVariable("id_user") Long id_user) {
 
-		userService.deleteUser(username, password, roles);
+		userService.deleteUser(id_user);
 
 	}
-	
 
 }
