@@ -1,6 +1,8 @@
 package fr.formation.user;
 
+import fr.formation.security.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * The type User controller.
  */
 @RestController
+@Secured(SecurityConstants.ROLE_USER)
 @RequestMapping("/users")
 public class UserController {
 
@@ -31,9 +34,8 @@ public class UserController {
 	 * @param code_postaux
 	 * @param code_ville
 	 * @param code_departement
-	 * @param roles
 	 */
-	@PostMapping("")
+	@PutMapping("")
 	public User signup(
 			@RequestParam(required = true) String username, 
 			@RequestParam(required = true) String password,
@@ -68,7 +70,7 @@ public class UserController {
 	 * @param confirm_password
 	 * @param email
 	 */
-	@PutMapping("/{id_user}")
+	@PostMapping("/update/{id_user}")
 	public void updateUser(@PathVariable("id_user") Long id_user, @RequestParam String ancien_password,
 			@RequestParam String nouveau_password, @RequestParam String confirm_password, @RequestParam String email) {
 

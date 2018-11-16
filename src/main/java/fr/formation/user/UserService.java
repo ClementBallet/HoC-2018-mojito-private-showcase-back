@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 
 import fr.formation.security.SecurityConstants;
 
+import javax.transaction.Transactional;
+
 /**
  * The type User service.
  */
@@ -76,7 +78,6 @@ public class UserService implements UserDetailsService {
 	 * @param code_postaux
 	 * @param code_ville
 	 * @param code_departement
-	 * @param roles
 	 */
 	public User addNewUser(String username, String password, String email, String ville, String code_postaux,
 			String code_ville, String code_departement) {
@@ -110,7 +111,9 @@ public class UserService implements UserDetailsService {
 	 */
 	public User getUser(Long id_user) {
 
-		return this.userRepository.getOne(id_user);
+		User user = userRepository.getOne(id_user);
+		log.info("User :", user );
+		return user;
 
 	}
 
@@ -130,15 +133,18 @@ public class UserService implements UserDetailsService {
 		String currentPassword = user.getPassword();
 		String currentEmail = user.getEmail();
 
-		if (currentPassword == ancien_password && currentEmail == email) {
+		if (currentPassword.equals(ancien_password)) {
+			if(currentEmail.equals(email)){
 
-			if (nouveau_password == confirm_password) {
+				if (nouveau_password.equals(confirm_password)) {
 
-				user.setPassword(nouveau_password);
-				userRepository.save(user);
-			} else {
-				log.info("les deux mots de pass ne sont pas identiques");
+					user.setPassword(nouveau_password);
+					userRepository.save(user);
+				} else {
+					log.info("les deux mots de pass ne sont pas identiques");
+				}
 			}
+
 		} else {
 			log.info("mot de pass et/ou email sont invalides");
 
