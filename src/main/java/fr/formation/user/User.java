@@ -29,23 +29,24 @@ public class User implements Serializable {
 	@Column(name = "password", nullable = false)
 	@JsonIgnore
 	private String password;
-	
+
 	@Column(name = "email", nullable = false)
 	private String email;
-	
+
 	@Column(name = "ville", nullable = false)
 	private String ville;
-	
+
 	@Column(name = "code_postaux", nullable = false)
 	private String code_postaux;
-	
+
 	@Column(name = "code_ville", nullable = false)
 	private String code_ville;
-	
+
 	@Column(name = "code_departement", nullable = true)
 	private String code_departement;
-	
-//	@OneToOne(cascade = CascadeType.ALL, 
+
+
+//	@OneToOne(cascade = CascadeType.ALL,
 //            fetch = FetchType.LAZY)
 //	@JoinColumn(name="Id_artist")
 //	private Artiste artiste;
@@ -103,7 +104,7 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	/**
 	 * Gets email.
 	 *
@@ -112,7 +113,7 @@ public class User implements Serializable {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	/**
 	 * Sets email.
 	 *
@@ -121,7 +122,7 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	/**
 	 * Gets ville.
 	 *
@@ -130,7 +131,7 @@ public class User implements Serializable {
 	public String getVille() {
 		return ville;
 	}
-	
+
 	/**
 	 * Sets ville.
 	 *
@@ -139,7 +140,7 @@ public class User implements Serializable {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
-	
+
 	/**
 	 * Gets code_postaux.
 	 *
@@ -148,7 +149,7 @@ public class User implements Serializable {
 	public String getCodePostaux() {
 		return code_postaux;
 	}
-	
+
 	/**
 	 * Sets code_postaux.
 	 *
@@ -157,7 +158,7 @@ public class User implements Serializable {
 	public void setCodePostaux(String code_postaux) {
 		this.code_postaux = code_postaux;
 	}
-	
+
 	/**
 	 * Gets code_ville.
 	 *
@@ -166,7 +167,7 @@ public class User implements Serializable {
 	public String getCodeVille() {
 		return code_ville;
 	}
-	
+
 	/**
 	 * Sets code_ville.
 	 *
@@ -175,7 +176,7 @@ public class User implements Serializable {
 	public void setCodeVille(String code_ville) {
 		this.code_ville = code_ville;
 	}
-	
+
 	/**
 	 * Gets code_departement.
 	 *
@@ -184,7 +185,7 @@ public class User implements Serializable {
 	public String getCodeDepartement() {
 		return code_departement;
 	}
-	
+
 	/**
 	 * Sets code_departement.
 	 *
@@ -193,7 +194,7 @@ public class User implements Serializable {
 	public void setCodeDepartement(String code_departement) {
 		this.code_departement = code_departement;
 	}
-	
+
 //	/**
 //	 * Gets artiste.
 //	 *
@@ -202,7 +203,7 @@ public class User implements Serializable {
 //	public Artiste getArtiste() {
 //		return artiste;
 //	}
-//	
+//
 //	/**
 //	 * Sets artiste.
 //	 *
@@ -211,6 +212,6 @@ public class User implements Serializable {
 //	public void setArtiste(String artiste) {
 //		this.artiste = artiste;
 //	}
-	
+
 
 }

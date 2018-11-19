@@ -19,14 +19,15 @@ public interface DepartementService {
 	List<Departement> getDepartement(final String nom);
 
 
+
 	/**
-	 * Gets departement by code.
+	 * Gets departement by code_region.
 	 *
-	 * @param code the code
+	 * @param codeRegion the code_region
 	 *
-	 * @return the departement by code
+	 * @return the departement by code_region
 	 */
-	List<Departement> getDepartementByCode(final String code);
+	List<Departement> getDepartementByCodeRegion(final String codeRegion);
 
 
 }

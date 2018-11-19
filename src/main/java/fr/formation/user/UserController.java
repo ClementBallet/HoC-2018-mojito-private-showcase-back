@@ -22,11 +22,11 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 
 	/**
 	 * add new user.
-	 * 
+	 *
 	 * @param username
 	 * @param password
 	 * @param email
@@ -37,11 +37,11 @@ public class UserController {
 	 */
 	@PutMapping("")
 	public User signup(
-			@RequestParam(required = true) String username, 
+			@RequestParam(required = true) String username,
 			@RequestParam(required = true) String password,
-			@RequestParam(required = true) String email, 
+			@RequestParam(required = true) String email,
 			@RequestParam(required = true) String ville,
-			@RequestParam(required = true) String code_postaux, 
+			@RequestParam(required = true) String code_postaux,
 			@RequestParam(required = true) String code_ville,
 			@RequestParam(required = true) String code_departement) {
 
@@ -51,7 +51,7 @@ public class UserController {
 
 	/**
 	 * s get user.
-	 * 
+	 *
 	 * @param id_user
 	 */
 	@GetMapping("/{id_user}")
@@ -63,7 +63,7 @@ public class UserController {
 
 	/**
 	 * update user.
-	 * 
+	 *
 	 * @param id_user
 	 * @param ancien_password
 	 * @param nouveau_password

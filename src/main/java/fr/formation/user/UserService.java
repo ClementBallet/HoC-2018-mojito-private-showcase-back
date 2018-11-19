@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
 
 	/**
 	 * add new user.
-	 * 
+	 *
 	 * @param username
 	 * @param password
 	 * @param email
@@ -91,7 +91,7 @@ public class UserService implements UserDetailsService {
 		user.setCodeVille(code_ville);
 		user.setCodeDepartement(code_departement);
 		user = userRepository.save(user);
-		
+
 		UserRole userRole = new UserRole();
 		userRole.setRole(SecurityConstants.ROLE_USER);
 		userRole.setUserId(user.getId());

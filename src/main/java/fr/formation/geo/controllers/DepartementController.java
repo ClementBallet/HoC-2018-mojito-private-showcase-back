@@ -38,7 +38,7 @@ public class DepartementController {
 	 *
 	 * @return the departement
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<List<Departement>> getDepartement(@RequestParam final String nom) {
 		final List<Departement> departements = this.departementService.getDepartement(nom);
 		return new ResponseEntity<>(departements, HttpStatus.OK);
@@ -47,13 +47,13 @@ public class DepartementController {
 	/**
 	 * Gets departement by code.
 	 *
-	 * @param code the code
+	 * @param codeRegion the code
 	 *
 	 * @return the departement by code
 	 */
-	@GetMapping("/{code}")
-	public ResponseEntity<List<Departement>> getDepartementByCode(@PathVariable(value = "code") final String code) {
-		final List<Departement> departements = this.departementService.getDepartementByCode(code);
+	@GetMapping("/{code_region}")
+	public ResponseEntity<List<Departement>> getDepartementByCodeRegion(@PathVariable(value = "code_region") final String codeRegion) {
+		final List<Departement> departements = this.departementService.getDepartementByCodeRegion(codeRegion);
 		return new ResponseEntity<>(departements, HttpStatus.OK);
 	}
 }
