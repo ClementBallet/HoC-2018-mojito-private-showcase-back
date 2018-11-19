@@ -1,12 +1,13 @@
 package fr.formation;
 
-import fr.formation.security.SecurityConstants;
+//import fr.formation.security.SecurityConstants;
 import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
 
 /**
  * This class configure the dataset at application start
@@ -36,16 +37,28 @@ public class BoostrapData {
 	@EventListener(ContextRefreshedEvent.class)
 	public void onStart() {
 
+		//a ajouter SecurityConstants.ROLE_ADMIN
 		userService.addNewUser(
 				"admin",
 				passwordEncoder.encode("admin"),
-				SecurityConstants.ROLE_ADMIN
+				"tareqsalem@hotmail.com",
+				"Lyon",
+				"69009 , 69008",
+				"84",
+				"84"
+
 		);
 		userService.addNewUser(
 				"user",
 				passwordEncoder.encode("user"),
-				SecurityConstants.ROLE_USER
+				"tareqsalem@hotmail.com",
+				"Lyon",
+				"69009 , 69008",
+				"84",
+				"84"
+
 		);
 	}
 
 }
+

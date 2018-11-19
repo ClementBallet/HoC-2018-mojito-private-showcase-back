@@ -38,14 +38,8 @@ public class HelloControllerTest {
 		MvcResult mvcResult = mvc.perform(formLogin("/login").user("admin").password("admin")).andReturn();
 		String authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 
-		mvc.perform(
-				get("/hello/admin")
-						.header("Authorization", authorizationHeader))
-						.andExpect(status().isOk()
-				)
-				.andExpect(content().json("{\n" +
-						"    \"message\": \"Hello Admin!\"\n" +
-						"}"))
+		mvc.perform(get("/hello/user").header("Authorization", authorizationHeader))
+				.andExpect(status().is(200))
 				.andExpect(authenticated().withUsername("admin"));
 		
 //		mvc.perform(get("/hello/user").header("Authorization", authorizationHeader)).andExpect(status().is(403));
@@ -63,7 +57,7 @@ public class HelloControllerTest {
 
 		String authorizationHeader = mvcResult.getResponse().getHeader("Authorization");
 		
-		mvc.perform(get("/hello/user").header("Authorization", authorizationHeader)).andExpect(status().is(403));
+		mvc.perform(get("/hello/user").header("Authorization", authorizationHeader)).andExpect(status().is(200));
 	}
 
 }

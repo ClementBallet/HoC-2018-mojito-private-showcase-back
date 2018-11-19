@@ -44,10 +44,10 @@ public class DepartementServiceImpl implements DepartementService {
 	}
 
 	@Override
-	public List<Departement> getDepartementByCode(String code) {
+	public List<Departement> getDepartementByCodeRegion(String codeRegion) {
 		UriComponentsBuilder builder = UriComponentsBuilder
 				.fromUriString(GeoApiConstants.GEO_API_BASE_URL + GeoApiConstants.RESOURCE_DEPARTEMENT)
-				.queryParam(GeoApiConstants.PARAMS_CODE, code)
+				.queryParam(GeoApiConstants.PARAMS_CODE, codeRegion)
 				.queryParam(GeoApiConstants.PARAMS_FIELDS, GeoApiConstants.DEPARTEMENT_FIELDS_VALUES);
 
 		return this.restTemplate.getForObject(
