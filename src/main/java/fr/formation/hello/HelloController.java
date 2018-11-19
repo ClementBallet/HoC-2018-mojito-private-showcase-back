@@ -4,6 +4,8 @@ import fr.formation.security.SecurityConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +42,8 @@ public class HelloController {
 	 */
 	@GetMapping("/user")
 	Hello sayHelloUser() {
+		// LIGNE RAJOUTEE !!!!!
+		SecurityContextHolder.getContext().getAuthentication().getName();
 		return new Hello("Hello User!");
 	}
 
