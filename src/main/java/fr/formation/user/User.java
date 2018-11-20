@@ -1,16 +1,21 @@
 package fr.formation.user;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.io.Serializable;
+import fr.formation.artiste.Artiste;
 
 /**
  * The type User.
@@ -19,199 +24,178 @@ import java.io.Serializable;
 @Table(name = "user")
 public class User implements Serializable {
 
+	private static final long serialVersionUID = 3803217955823414799L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-	@Column(name = "pseudo", nullable = false, unique = true)
-	private String username;
+    @Column(name = "pseudo", nullable = false, unique = true)
+    private String username;
 
-	@Column(name = "password", nullable = false)
-	@JsonIgnore
-	private String password;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	@Column(name = "email", nullable = false)
-	private String email;
+    @Column(name = "email", nullable = false)
+    private String email;
 
-	@Column(name = "ville", nullable = false)
-	private String ville;
+    @Column(name = "ville", nullable = false)
+    private String ville;
 
-	@Column(name = "code_postaux", nullable = false)
-	private String code_postaux;
+    @Column(name = "code_ville", nullable = false)
+    private String codeVille;
 
-	@Column(name = "code_ville", nullable = false)
-	private String code_ville;
+    @Column(name = "code_departement", nullable = true)
+    private String codeDepartement;
 
-	@Column(name = "code_departement", nullable = true)
-	private String code_departement;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_artist", nullable = true)
+    private Artiste artiste;
 
+    /**
+     * Gets id.
+     *
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-//	@OneToOne(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY)
-//	@JoinColumn(name="Id_artist")
-//	private Artiste artiste;
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * Gets pseudo.
+     *
+     * @return the pseudo
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Gets ville.
+     *
+     * @return the ville
+     */
+    public String getVille() {
+        return ville;
+    }
+
+    /**
+     * Sets ville.
+     *
+     * @param ville the ville
+     */
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    /**
+     * Gets code_ville.
+     *
+     * @return the code_ville
+     */
+    public String getCodeVille() {
+        return codeVille;
+    }
+
+    /**
+     * Sets code_ville.
+     *
+     * @param code_ville the code_ville
+     */
+    public void setCodeVille(String code_ville) {
+        this.codeVille = code_ville;
+    }
+
+    /**
+     * Gets code_departement.
+     *
+     * @return the code_departement
+     */
+    public String getCodeDepartement() {
+        return codeDepartement;
+    }
+
+    /**
+     * Sets code_departement.
+     *
+     * @param code_departement the code_departement
+     */
+    public void setCodeDepartement(String code_departement) {
+        this.codeDepartement = code_departement;
+    }
 
 	/**
-	 * Gets id.
+	 * Gets artiste.
 	 *
-	 * @return the id
+	 * @return the artiste
 	 */
-	public Long getId() {
-		return id;
+	public Artiste getArtiste() {
+		return artiste;
 	}
 
 	/**
-	 * Sets id.
+	 * Sets artiste.
 	 *
-	 * @param id the id
+	 * @param artiste the artiste
 	 */
-	public void setId(Long id) {
-		this.id = id;
+	public void setArtiste(Artiste artiste) {
+		this.artiste = artiste;
 	}
 
-	/**
-	 * Gets pseudo.
-	 *
-	 * @return the pseudo
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * Sets username.
-	 *
-	 * @param username the username
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	/**
-	 * Gets password.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Sets password.
-	 *
-	 * @param password the password
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * Gets email.
-	 *
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * Sets email.
-	 *
-	 * @param email the email
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * Gets ville.
-	 *
-	 * @return the ville
-	 */
-	public String getVille() {
-		return ville;
-	}
-
-	/**
-	 * Sets ville.
-	 *
-	 * @param password the ville
-	 */
-	public void setVille(String ville) {
-		this.ville = ville;
-	}
-
-	/**
-	 * Gets code_postaux.
-	 *
-	 * @return the code_postaux
-	 */
-	public String getCodePostaux() {
-		return code_postaux;
-	}
-
-	/**
-	 * Sets code_postaux.
-	 *
-	 * @param password the code_postaux
-	 */
-	public void setCodePostaux(String code_postaux) {
-		this.code_postaux = code_postaux;
-	}
-
-	/**
-	 * Gets code_ville.
-	 *
-	 * @return the code_ville
-	 */
-	public String getCodeVille() {
-		return code_ville;
-	}
-
-	/**
-	 * Sets code_ville.
-	 *
-	 * @param code_ville the code_ville
-	 */
-	public void setCodeVille(String code_ville) {
-		this.code_ville = code_ville;
-	}
-
-	/**
-	 * Gets code_departement.
-	 *
-	 * @return the code_departement
-	 */
-	public String getCodeDepartement() {
-		return code_departement;
-	}
-
-	/**
-	 * Sets code_departement.
-	 *
-	 * @param code_departement the code_departement
-	 */
-	public void setCodeDepartement(String code_departement) {
-		this.code_departement = code_departement;
-	}
-
-//	/**
-//	 * Gets artiste.
-//	 *
-//	 * @return the artiste
-//	 */
-//	public Artiste getArtiste() {
-//		return artiste;
-//	}
-//
-//	/**
-//	 * Sets artiste.
-//	 *
-//	 * @param artiste the artiste
-//	 */
-//	public void setArtiste(String artiste) {
-//		this.artiste = artiste;
-//	}
 
 
 }

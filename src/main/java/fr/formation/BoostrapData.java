@@ -1,6 +1,7 @@
 package fr.formation;
 
 //import fr.formation.security.SecurityConstants;
+import fr.formation.user.User;
 import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -17,18 +18,14 @@ public class BoostrapData {
 
 	private UserService userService;
 
-	private PasswordEncoder passwordEncoder;
-
 	/**
 	 * Instantiates a new Boostrap data.
 	 *
 	 * @param userService     the user service
-	 * @param passwordEncoder the password encoder
 	 */
 	@Autowired
-	public BoostrapData(UserService userService, PasswordEncoder passwordEncoder) {
+	public BoostrapData(UserService userService) {
 		this.userService = userService;
-		this.passwordEncoder = passwordEncoder;
 	}
 
 	/**
@@ -37,28 +34,22 @@ public class BoostrapData {
 	@EventListener(ContextRefreshedEvent.class)
 	public void onStart() {
 
-		//a ajouter SecurityConstants.ROLE_ADMIN
-		userService.addNewUser(
-				"admin",
-				passwordEncoder.encode("admin"),
-				"tareqsalem@hotmail.com",
-				"Lyon",
-				"69009 , 69008",
-				"84",
-				"84"
+		User userAdmin = new User();
+		userAdmin.setUsername("admin");
+		userAdmin.setPassword("aA123456");
+		userAdmin.setEmail("t@t.fr");
+		userAdmin.setVille("Amiens");
+		userAdmin.setCodeVille("021");
 
-		);
-		userService.addNewUser(
-				"user",
-				passwordEncoder.encode("user"),
-				"tareqsalem@hotmail.com",
-				"Lyon",
-				"69009 , 69008",
-				"84",
-				"84"
+		User user = new User();
+		user.setUsername("user");
+		user.setPassword("aA123456");
+		user.setEmail("t@t.fr");
+		user.setVille("Amiens");
+		user.setCodeVille("021");
 
-		);
+		userService.addNewUser(userAdmin);
+		userService.addNewUser(user);
 	}
-
 }
 

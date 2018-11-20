@@ -1,0 +1,525 @@
+{
+	"info": {
+		"_postman_id": "9b67f6d4-94e2-401a-b88a-27f818ecc98e",
+		"name": "PrivateShowCase User",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d07c4697-88a7-4135-a90b-d45d5c08d934",
+						"type": "text/javascript",
+						"exec": [
+							"var headerJwtUser = responseHeaders[\"Authorization\"]",
+							"postman.setEnvironmentVariable(\"tokenUser\", headerJwtUser);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"username\":\"user\", \"password\":\"user\"}"
+				},
+				"url": {
+					"raw": "{{uri}}/login",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a5b2f2e-ce33-4541-828c-343517425479",
+						"exec": [
+							"tests[\"Status is 200\"] = responseCode.code == \"200\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/hello/user",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"hello",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6f8d7bc-9e3b-4dde-bbb5-f4ae6469ac13",
+						"exec": [
+							"tests[\"Status is 403\"] = responseCode.code == \"403\""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users/",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User (post)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users?username=toto1&password=aaaaA1aa&email=bo1b@gmail.com&ville=Lyon&code_postaux=69123&code_ville=52&code_departement=84&artiste_nom=lolok&description_courte=haa jaaa jjaa a ",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "toto1"
+						},
+						{
+							"key": "password",
+							"value": "aaaaA1aa"
+						},
+						{
+							"key": "email",
+							"value": "bo1b@gmail.com"
+						},
+						{
+							"key": "ville",
+							"value": "Lyon"
+						},
+						{
+							"key": "code_postaux",
+							"value": "69123"
+						},
+						{
+							"key": "code_ville",
+							"value": "52"
+						},
+						{
+							"key": "code_departement",
+							"value": "84"
+						},
+						{
+							"key": "isArtiste",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "artiste_nom",
+							"value": "lolok"
+						},
+						{
+							"key": "description_courte",
+							"value": "haa jaaa jjaa a "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{tokenUser}}",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\" : \"testUsername\",\n\t\"password\" : \"aA123456\",\n\t\"email\" : \"t@t.fr\",\n\t\"ville\" : \"Amiens\",\n\t\"codeVille\" : \"021\",\n\t\"codeDepartement\" : \"80\",\n\t\"artiste\" : {\n\t\t\"artisteNom\" : \"Mojito\",\n\t\t\"descriptionCourte\" : \"Mojito rocks !!!\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{uri}}/users?",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "toto1",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "aaaaA1aa",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "bo1b@gmail.com",
+							"disabled": true
+						},
+						{
+							"key": "ville",
+							"value": "Lyon",
+							"disabled": true
+						},
+						{
+							"key": "code_postaux",
+							"value": "69123",
+							"disabled": true
+						},
+						{
+							"key": "code_ville",
+							"value": "52",
+							"disabled": true
+						},
+						{
+							"key": "code_departement",
+							"value": "84",
+							"disabled": true
+						},
+						{
+							"key": "isArtiste",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "artiste_nom",
+							"value": "lolok",
+							"disabled": true
+						},
+						{
+							"key": "description_courte",
+							"value": "haa jaaa jjaa a ",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User (get)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users/authenticated",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users",
+						"authenticated"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User(delete)",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users/5",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User(get)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users/1",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user(post)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/users/update/1?ancien_password=azeaze&nouveau_password=1213&confirm_password=1213&email=bo1b@gmail.com",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"users",
+						"update",
+						"1"
+					],
+					"query": [
+						{
+							"key": "ancien_password",
+							"value": "azeaze"
+						},
+						{
+							"key": "nouveau_password",
+							"value": "1213"
+						},
+						{
+							"key": "confirm_password",
+							"value": "1213"
+						},
+						{
+							"key": "email",
+							"value": "bo1b@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "departement(get)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/departements?nom=ain",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"departements"
+					],
+					"query": [
+						{
+							"key": "nom",
+							"value": "ain"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "commune(get)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/communes?nom=Lyon",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"communes"
+					],
+					"query": [
+						{
+							"key": "nom",
+							"value": "Lyon"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{uri}}/communes?nom=Lyon",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{tokenUser}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{uri}}/communes?nom=Lyon",
+					"host": [
+						"{{uri}}"
+					],
+					"path": [
+						"communes"
+					],
+					"query": [
+						{
+							"key": "nom",
+							"value": "Lyon"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

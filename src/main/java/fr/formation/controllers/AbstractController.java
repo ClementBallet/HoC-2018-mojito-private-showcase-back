@@ -1,0 +1,30 @@
+package fr.formation.controllers;
+
+import fr.formation.user.User;
+import fr.formation.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+public abstract class AbstractController {
+
+    @Autowired
+    private UserService userService;
+
+    /**
+     * Récupération du username de l'utilisateur authentifié
+     * @return
+     */
+    protected String getAuthenticatedUsername () {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
+    /**
+     * Récupération de l'utilisateur authentifié
+     * @return
+     */
+    protected User getAuthenticatedUser () {
+        return userService.getUserByUsername(getAuthenticatedUsername());
+    }
+
+
+}

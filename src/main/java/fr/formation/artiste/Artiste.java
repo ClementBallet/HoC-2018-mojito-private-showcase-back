@@ -19,17 +19,17 @@ public class Artiste {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "artiste_nom", nullable = false, unique = true)
-	private String artiste_nom;
+	@Column(name = "artisteNom", nullable = false, unique = true)
+	private String artisteNom;
 	
-	@Column(name = "description_courte", length = 150, nullable = true)
-	private String description_courte;
+	@Column(name = "descriptionCourte", length = 150, nullable = true)
+	private String descriptionCourte;
 	
 	@Column(name = "description_longue", length = 1000, nullable = true)
 	private String description_longue;
 	
-	@Column(name = "site_web", nullable = true)
-	private String site_web;
+	@Column(name = "siteWeb", nullable = true)
+	private String siteWeb;
 	
 	@Column(name = "telephone", nullable = true)
 	private String telephone;
@@ -63,31 +63,31 @@ public class Artiste {
 	}
 
 	/**
-	 * @return the artiste_nom
+	 * @return the artisteNom
 	 */
-	public String getArtiste_nom() {
-		return artiste_nom;
+	public String getArtisteNom() {
+		return artisteNom;
 	}
 
 	/**
-	 * @param artiste_nom the artiste_nom to set
+	 * @param artisteNom the artisteNom to set
 	 */
-	public void setArtiste_nom(String artiste_nom) {
-		this.artiste_nom = artiste_nom;
+	public void setArtisteNom(String artisteNom) {
+		this.artisteNom = artisteNom;
 	}
 
 	/**
-	 * @return the description_courte
+	 * @return the descriptionCourte
 	 */
-	public String getDescription_courte() {
-		return description_courte;
+	public String getDescriptionCourte() {
+		return descriptionCourte;
 	}
 
 	/**
-	 * @param description_courte the description_courte to set
+	 * @param descriptionCourte the descriptionCourte to set
 	 */
-	public void setDescription_courte(String description_courte) {
-		this.description_courte = description_courte;
+	public void setDescriptionCourte(String descriptionCourte) {
+		this.descriptionCourte = descriptionCourte;
 	}
 
 	/**
@@ -105,17 +105,17 @@ public class Artiste {
 	}
 
 	/**
-	 * @return the site_web
+	 * @return the siteWeb
 	 */
-	public String getSite_web() {
-		return site_web;
+	public String getSiteWeb() {
+		return siteWeb;
 	}
 
 	/**
-	 * @param site_web the site_web to set
+	 * @param siteWeb the siteWeb to set
 	 */
-	public void setSite_web(String site_web) {
-		this.site_web = site_web;
+	public void setSiteWeb(String siteWeb) {
+		this.siteWeb = siteWeb;
 	}
 
 	/**

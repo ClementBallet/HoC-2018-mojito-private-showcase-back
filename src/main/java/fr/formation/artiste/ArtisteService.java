@@ -39,10 +39,10 @@ public class ArtisteService {
 			String telephone, String email) {
 
 		Artiste artiste = new Artiste();
-		artiste.setArtiste_nom(nomArtiste);
-		artiste.setDescription_courte(descriptionCourte);
+		artiste.setArtisteNom(nomArtiste);
+		artiste.setDescriptionCourte(descriptionCourte);
 		artiste.setDescription_longue(descriptionLongue);
-		artiste.setSite_web(siteWeb);
+		artiste.setSiteWeb(siteWeb);
 		artiste.setTelephone(telephone);
 		artiste.setEmail(email);
 		return this.artisteRepository.save(artiste);
@@ -73,10 +73,10 @@ public class ArtisteService {
 
         if (NameArtisteInDatabase.equals(nomArtiste)) {
             Artiste artiste = this.artisteRepository.getOne(artisteId);
-            if (nomArtiste != null) artiste.setArtiste_nom(nomArtiste);
-            if (descriptionCourte != null) artiste.setDescription_courte(descriptionCourte);
+            if (nomArtiste != null) artiste.setArtisteNom(nomArtiste);
+            if (descriptionCourte != null) artiste.setDescriptionCourte(descriptionCourte);
             if (descriptionLongue != null) artiste.setDescription_longue(descriptionLongue);
-            if (siteWeb != null) artiste.setSite_web(siteWeb);
+            if (siteWeb != null) artiste.setSiteWeb(siteWeb);
             if (telephone != null) artiste.setTelephone(telephone);
             if (email != null) artiste.setEmail(email);
             this.artisteRepository.saveAndFlush(artiste);
