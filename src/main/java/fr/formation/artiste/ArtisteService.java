@@ -2,6 +2,7 @@ package fr.formation.artiste;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ArtisteService {
 	 * @param email
 	 */
 	public Artiste createNewArtiste(String nomArtiste, String descriptionCourte, String descriptionLongue, String siteWeb,
-			String telephone, String email) {
+			String telephone, String email, String[] departementList) {
 
 		Artiste artiste = new Artiste();
 		artiste.setArtisteNom(nomArtiste);
@@ -43,6 +44,8 @@ public class ArtisteService {
 		artiste.setSiteWeb(siteWeb);
 		artiste.setTelephone(telephone);
 		artiste.setEmail(email);
+		artiste.setDepartementList(departementList);
+
 		return this.artisteRepository.save(artiste);
 
 	}
@@ -50,14 +53,19 @@ public class ArtisteService {
 	/**
 	 * Retourne les informations d'un artiste inscrits en BDD
 	 * 
-	 * @param artisteId
+	 * @param nomArtiste
 	 * @return Artiste
 	 */
-	public Artiste getArtiste(Long artisteId) {
+	public Artiste getArtistByArtistNom(final String nomArtiste) {
 
-		return this.artisteRepository.getOne(artisteId);
+		Artiste artiste = artisteRepository.findByArtisteNom(nomArtiste);
+		if (artiste != null) {
+			return artiste;
+		}
 
+		throw new UsernameNotFoundException("Le user avec le username " + nomArtiste + " n'existe pas");
 	}
+
 
 	/**
 	 * Met à jour un artiste en BDD
@@ -65,9 +73,9 @@ public class ArtisteService {
 	 * @param artisteId
 	 */
 	public void updateArtiste(Long artisteId, String nomArtiste, String descriptionCourte, String descriptionLongue, String siteWeb,
-			String telephone, String email) {
+			String telephone, String email, String[] departementList) {
 
-        String NameArtisteInDatabase = SecurityContextHolder.getContext().getAuthentication().getName();
+        Artiste NameArtisteInDatabase = artisteRepository.getOne(artisteId);
 
         if (NameArtisteInDatabase.equals(nomArtiste)) {
             Artiste artiste = this.artisteRepository.getOne(artisteId);
@@ -77,6 +85,7 @@ public class ArtisteService {
             if (siteWeb != null) artiste.setSiteWeb(siteWeb);
             if (telephone != null) artiste.setTelephone(telephone);
             if (email != null) artiste.setEmail(email);
+            if(departementList != null) artiste.setDepartementList(departementList);
             this.artisteRepository.saveAndFlush(artiste);
         }
 

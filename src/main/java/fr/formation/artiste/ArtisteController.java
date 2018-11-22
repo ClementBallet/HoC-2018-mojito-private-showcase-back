@@ -5,14 +5,7 @@ import fr.formation.security.SecurityConstants;
 import fr.formation.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,23 +44,24 @@ public class ArtisteController extends AbstractController {
 			@RequestParam(required = false) String descriptionLongue,
 			@RequestParam(required = false) String siteWeb, 
 			@RequestParam(required = false) String telephone, 
-			@RequestParam(required = false) String email) {
+			@RequestParam(required = false) String email,
+			@RequestParam(required = false) String[] departementList) {
 		return artisteService.createNewArtiste(nomArtiste, descriptionCourte, descriptionLongue, siteWeb, telephone,
-				email);
+				email, departementList);
 	}
 
 	/**
 	 * Route de l'API de récupération d'un artiste
 	 * 
-	 * @param artisteId
+	 * @param artisteNom
 	 * @return Artiste
 	 */
-	@GetMapping("/{artisteId}")
-	public Artiste getArtiste(@PathVariable Long artisteId) {
-		return artisteService.getArtiste(artisteId);
+	@GetMapping("/{artisteNom}")
+	public Artiste getArtistByArtistNom(@PathVariable  final String artisteNom) {
+		return artisteService.getArtistByArtistNom(artisteNom);
 	}
 
-	/**
+	/**s
 	 * Route de l'API de mise à jour d'un artiste
 	 * 
 	 * @param artisteId
@@ -80,9 +74,10 @@ public class ArtisteController extends AbstractController {
 			@RequestParam(required = false) String descriptionLongue,
 			@RequestParam(required = false) String siteWeb, 
 			@RequestParam(required = false) String telephone, 
-			@RequestParam(required = false) String email) {
+			@RequestParam(required = false) String email,
+			@RequestParam(required = false) String[] departementList) {
 		artisteService.updateArtiste(artisteId, nomArtiste, descriptionCourte, descriptionLongue, siteWeb, telephone,
-				email);
+				email, departementList);
 	}
 
 	/**
