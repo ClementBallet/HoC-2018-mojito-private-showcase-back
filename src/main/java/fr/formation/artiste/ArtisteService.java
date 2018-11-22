@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author adminHOC
+ * @author Clément
  *
  */
 @Service
@@ -21,11 +21,7 @@ public class ArtisteService {
 	 * @param artisteRepository
 	 */
 	@Autowired
-	public ArtisteService(ArtisteRepository artisteRepository) {
-
-		this.artisteRepository = artisteRepository;
-
-	}
+	public ArtisteService(ArtisteRepository artisteRepository) { this.artisteRepository = artisteRepository; }
 
 	/**
 	 * Sauvegarder un artiste en BDD

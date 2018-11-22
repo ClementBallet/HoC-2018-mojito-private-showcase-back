@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Table(name = "departement")
 public class Departement implements Serializable {
 
+
     private static final long serialVersionUID = 3803217955823414799L;
 
     @Id
@@ -114,4 +115,5 @@ public class Departement implements Serializable {
 //    public void setArtiste(Artiste artiste) {
 //        this.artiste = artiste;
 //    }
+
 }

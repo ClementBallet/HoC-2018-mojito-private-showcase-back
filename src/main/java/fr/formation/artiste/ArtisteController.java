@@ -35,6 +35,13 @@ public class ArtisteController extends AbstractController {
 	/**
 	 * Route de l'API de création d'un nouvel artiste
 	 *
+	 * @param nomArtiste
+	 * @param descriptionCourte
+	 * @param descriptionLongue
+	 * @param siteWeb
+	 * @param telephone
+	 * @param email
+	 * @return Artiste
 	 * @return
 	 */
 	@PostMapping("")
@@ -53,7 +60,7 @@ public class ArtisteController extends AbstractController {
 	 * Route de l'API de récupération d'un artiste
 	 * 
 	 * @param artisteId
-	 * @return 
+	 * @return Artiste
 	 */
 	@GetMapping("/{artisteId}")
 	public Artiste getArtiste(@PathVariable Long artisteId) {
