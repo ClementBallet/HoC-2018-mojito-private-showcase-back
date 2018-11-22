@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 /**
+ * @author Tareq
  * The interface User role repository.
  */
 public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {

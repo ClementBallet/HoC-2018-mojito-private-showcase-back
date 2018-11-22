@@ -8,6 +8,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * @author Tareq
  * The type User controller.
  */
 @RestController
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     /**
-     * s get user.
+     * get user.
      */
     @GetMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
@@ -44,19 +45,20 @@ public class UserController {
     /**
      * update user.
      *
-     * @param username
      * @param ancien_password
      * @param nouveau_password
      * @param confirm_password
      * @param email
      */
-    @PostMapping("/update")
+    @PutMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
-    public void updateUser(@PathVariable("username") String username, @RequestParam String ancien_password,
-                           @RequestParam String nouveau_password, @RequestParam String confirm_password, @RequestParam String email) {
+    public void updateUser(@RequestParam String ancien_password,
+                           @RequestParam String nouveau_password,
+                           @RequestParam String confirm_password,
+                           @RequestParam String email) {
 
-        userService.updateUser(username, ancien_password, nouveau_password, confirm_password, email);
-
+        User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        userService.updateUser(user, ancien_password, nouveau_password, confirm_password, email);
     }
 
     /**
@@ -64,12 +66,12 @@ public class UserController {
      *
      * @param username
      */
-    @DeleteMapping("/{username}")
+    @DeleteMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
-    public void deleteUser(@PathVariable("username") String username) {
+    public void deleteUser() {
 
-        userService.deleteUser(username);
-
+        User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        userService.deleteUser(user);
     }
 
 }

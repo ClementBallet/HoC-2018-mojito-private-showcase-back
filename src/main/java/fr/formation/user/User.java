@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * @author Tareq
  * The type User.
  */
 @Entity
