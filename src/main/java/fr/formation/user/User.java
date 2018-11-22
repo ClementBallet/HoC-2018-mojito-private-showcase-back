@@ -1,21 +1,9 @@
 package fr.formation.user;
 
-import java.io.Serializable;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import fr.formation.artiste.Artiste;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * The type User.
@@ -24,7 +12,19 @@ import fr.formation.artiste.Artiste;
 @Table(name = "user")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 3803217955823414799L;
+    private static final long serialVersionUID = 3803217955823414799L;
+
+    public User(String username, String password, String email, String ville, String codeVille, String codeDepartement, Artiste artiste) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.ville = ville;
+        this.codeVille = codeVille;
+        this.codeDepartement = codeDepartement;
+        this.artiste = artiste;
+    }
+
+    public User() { }
 
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +49,6 @@ public class User implements Serializable {
     private String codeDepartement;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_artist", nullable = true)
     private Artiste artiste;
 
     /**

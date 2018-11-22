@@ -2,6 +2,7 @@ package fr.formation.artiste;
 
 import javax.persistence.*;
 
+import fr.formation.geo.model.Departement;
 import fr.formation.user.User;
 
 /**
@@ -41,8 +42,12 @@ public class Artiste {
 	 * Relation One to One avec User.
 	 * Un artiste est possédé par un user.
 	 */
-	@OneToOne
-	private User user;
+//	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	private User user;
+
+//	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "id_departement", nullable = true)
+//	private Departement departement;
 
 	/**
 	 * GETTERS & SETTERS
@@ -145,4 +150,18 @@ public class Artiste {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+//	/**
+//	 * @return the user
+//	 */
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	/**
+//	 * @param user the user to set
+//	 */
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 }

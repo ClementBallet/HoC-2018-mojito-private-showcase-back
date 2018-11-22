@@ -1,6 +1,8 @@
 package fr.formation.artiste;
 
+import fr.formation.controllers.AbstractController;
 import fr.formation.security.SecurityConstants;
+import fr.formation.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * @author Clément Rest Controller Artiste Envoie les infos relatives à
  *         l'artiste
@@ -19,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Secured(SecurityConstants.ROLE_USER)
 @RequestMapping("/artistes")
-public class ArtisteController {
+public class ArtisteController extends AbstractController {
 
 	private ArtisteService artisteService;
 
@@ -30,8 +34,7 @@ public class ArtisteController {
 
 	/**
 	 * Route de l'API de création d'un nouvel artiste
-	 * 
-	 * @param artisteId
+	 *
 	 * @return
 	 */
 	@PostMapping("")
@@ -85,4 +88,13 @@ public class ArtisteController {
 		artisteService.deleteArtiste(artisteId);
 	}
 
+	/**
+	 * Récupère les artistes en fonction de leur département
+	 * @return List<Artiste>
+	 */
+	@GetMapping("/list")
+	public List<Artiste> getArtistsFromDepartement() {
+		User user = super.getAuthenticatedUser();
+		return artisteService.findArtistsByDepartementCode(user.getCodeDepartement());
+	}
 }

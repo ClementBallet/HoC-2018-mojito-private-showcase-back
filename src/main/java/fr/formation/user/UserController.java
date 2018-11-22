@@ -44,31 +44,31 @@ public class UserController {
     /**
      * update user.
      *
-     * @param id_user
+     * @param username
      * @param ancien_password
      * @param nouveau_password
      * @param confirm_password
      * @param email
      */
-    @PostMapping("/update/{id_user}")
+    @PostMapping("/update")
     @Secured(SecurityConstants.ROLE_USER)
-    public void updateUser(@PathVariable("id_user") Long id_user, @RequestParam String ancien_password,
+    public void updateUser(@PathVariable("username") String username, @RequestParam String ancien_password,
                            @RequestParam String nouveau_password, @RequestParam String confirm_password, @RequestParam String email) {
 
-        userService.updateUser(id_user, ancien_password, nouveau_password, confirm_password, email);
+        userService.updateUser(username, ancien_password, nouveau_password, confirm_password, email);
 
     }
 
     /**
      * delete user.
      *
-     * @param id_user
+     * @param username
      */
-    @DeleteMapping("/{id_user}")
+    @DeleteMapping("/{username}")
     @Secured(SecurityConstants.ROLE_USER)
-    public void deleteUser(@PathVariable("id_user") Long id_user) {
+    public void deleteUser(@PathVariable("username") String username) {
 
-        userService.deleteUser(id_user);
+        userService.deleteUser(username);
 
     }
 

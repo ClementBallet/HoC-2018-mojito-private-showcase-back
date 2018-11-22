@@ -23,7 +23,10 @@ public abstract class AbstractController {
      * @return
      */
     protected User getAuthenticatedUser () {
-        return userService.getUserByUsername(getAuthenticatedUsername());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.getUserByUsername(username);
+
+//        return userService.getUserByUsername(getAuthenticatedUsername());
     }
 
 

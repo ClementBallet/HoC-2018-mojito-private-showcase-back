@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author adminHOC
  *
@@ -94,5 +96,9 @@ public class ArtisteService {
 		Artiste artiste = this.artisteRepository.getOne(artisteId);
 		this.artisteRepository.delete(artiste);
 
+	}
+
+	public List<Artiste> findArtistsByDepartementCode (final String codeDepartement) {
+		return artisteRepository.findArtistsByUser_DepartmentCode(codeDepartement);
 	}
 }

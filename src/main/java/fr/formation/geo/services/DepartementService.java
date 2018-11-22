@@ -1,5 +1,6 @@
 package fr.formation.geo.services;
 
+import fr.formation.artiste.ArtisteRepository;
 import fr.formation.geo.model.Departement;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
  * The interface Departement service.
  */
 public interface DepartementService {
+
 
 	/**
 	 * Gets departement.
@@ -28,6 +30,23 @@ public interface DepartementService {
 	 * @return the departement by code_region
 	 */
 	List<Departement> getDepartementByCodeRegion(final String codeRegion);
+
+	/**
+	 * recuperer les departements selectionnees pas l'artiste.
+	 * @param
+	 * @return
+	 */
+
+	/**
+	 *
+	 * @param departements
+	 * @return
+	 */
+	//List<Departement> addDepartements(List<Departement> departements);
+
+
+
+
 
 
 }

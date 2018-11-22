@@ -1,5 +1,7 @@
 package fr.formation.geo.services.impl;
 
+import fr.formation.artiste.Artiste;
+import fr.formation.artiste.ArtisteRepository;
 import fr.formation.geo.GeoApiConstants;
 import fr.formation.geo.model.Departement;
 import fr.formation.geo.services.DepartementService;
@@ -19,6 +21,7 @@ import java.util.List;
 public class DepartementServiceImpl implements DepartementService {
 
 	private RestTemplate restTemplate;
+	private ArtisteRepository artisteRepository;
 
 	/**
 	 * Instantiates a new Departement service.
@@ -55,5 +58,24 @@ public class DepartementServiceImpl implements DepartementService {
 				List.class
 		);
 	}
+
+
+//	public List<Departement>  addDepartementsToArtiste(List<Departement> departements, String artisteNom) {
+//
+//		Artiste artiste  = new Artiste();
+//		artiste.setArtisteNom(artisteNom);
+//		artiste.getArtisteNom();
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

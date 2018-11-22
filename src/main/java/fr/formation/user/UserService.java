@@ -131,16 +131,16 @@ public class UserService implements UserDetailsService {
     /**
      * update user
      *
-     * @param id_user
+     * @param username
      * @param ancien_password
      * @param nouveau_password
      * @param confirm_password
      * @param email
      */
-    public void updateUser(Long id_user, String ancien_password, String nouveau_password, String confirm_password,
+    public void updateUser(String username, String ancien_password, String nouveau_password, String confirm_password,
                            String email) {
 
-        User user = this.userRepository.getOne(id_user);
+        User user = this.userRepository.findByUsername(username);
         String currentPassword = user.getPassword();
         String currentEmail = user.getEmail();
 
@@ -164,11 +164,11 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * @param id_user
+     * @param username
      */
-    public void deleteUser(Long id_user) {
+    public void deleteUser(String username) {
 
-        User user = this.userRepository.getOne(id_user);
+        User user = this.userRepository.findByUsername(username);
         this.userRepository.delete(user);
 
     }
