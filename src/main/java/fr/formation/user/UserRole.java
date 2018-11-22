@@ -3,6 +3,7 @@ package fr.formation.user;
 import javax.persistence.*;
 
 /**
+ * @author Tareq
  * The type User role.
  */
 @Entity

@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,6 +25,7 @@ import fr.formation.security.SecurityConstants;
 
 
 /**
+ * @author Tareq
  * The type User service.
  */
 @Service
@@ -120,6 +122,7 @@ public class UserService implements UserDetailsService {
      */
     public User getUserByUsername(final String username) {
 
+
         User user = userRepository.findByUsername(username);
         if (user != null) {
             return user;
@@ -131,44 +134,37 @@ public class UserService implements UserDetailsService {
     /**
      * update user
      *
-     * @param username
      * @param ancien_password
      * @param nouveau_password
      * @param confirm_password
      * @param email
      */
-    public void updateUser(String username, String ancien_password, String nouveau_password, String confirm_password,
-                           String email) {
+    public void updateUser(User user, String ancien_password, String nouveau_password, String confirm_password, String email) {
 
-        User user = this.userRepository.findByUsername(username);
         String currentPassword = user.getPassword();
         String currentEmail = user.getEmail();
 
-        if (currentPassword.equals(ancien_password)) {
+        if (passwordEncoder.matches(ancien_password, currentPassword)) {
             if (currentEmail.equals(email)) {
-
                 if (nouveau_password.equals(confirm_password)) {
-
-                    user.setPassword(nouveau_password);
+                    user.setPassword(passwordEncoder.encode(nouveau_password));
                     userRepository.save(user);
                 } else {
                     log.info("les deux mots de pass ne sont pas identiques");
                 }
+            } else {
+                log.info("email est invalide");
             }
-
         } else {
-            log.info("mot de pass et/ou email sont invalides");
-
+            log.info("mot de pass actuel invalide");
         }
-
     }
 
     /**
-     * @param username
+     * @param user
      */
-    public void deleteUser(String username) {
+    public void deleteUser(User user) {
 
-        User user = this.userRepository.findByUsername(username);
         this.userRepository.delete(user);
 
     }
