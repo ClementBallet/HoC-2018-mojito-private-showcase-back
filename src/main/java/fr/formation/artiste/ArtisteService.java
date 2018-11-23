@@ -1,7 +1,11 @@
 package fr.formation.artiste;
 
+import fr.formation.artiste.dto.ArtisteUpdateDTO;
+import fr.formation.user.User;
+import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +18,7 @@ import java.util.List;
 public class ArtisteService {
 
 	private ArtisteRepository artisteRepository;
+	private UserService userService;
 
 	/**
 	 * Instancie un nouveau ArtisteRepository
@@ -34,7 +39,7 @@ public class ArtisteService {
 	 * @param email
 	 */
 	public Artiste createNewArtiste(String nomArtiste, String descriptionCourte, String descriptionLongue, String siteWeb,
-			String telephone, String email) {
+			String telephone, String email, String[] departementList) {
 
 		Artiste artiste = new Artiste();
 		artiste.setArtisteNom(nomArtiste);
@@ -43,6 +48,8 @@ public class ArtisteService {
 		artiste.setSiteWeb(siteWeb);
 		artiste.setTelephone(telephone);
 		artiste.setEmail(email);
+		artiste.setDepartementList(departementList);
+
 		return this.artisteRepository.save(artiste);
 
 	}
@@ -50,35 +57,36 @@ public class ArtisteService {
 	/**
 	 * Retourne les informations d'un artiste inscrits en BDD
 	 * 
-	 * @param artisteId
+	 * @param nomArtiste
 	 * @return Artiste
 	 */
-	public Artiste getArtiste(Long artisteId) {
+	public Artiste getArtistByArtistNom(final String nomArtiste) {
 
-		return this.artisteRepository.getOne(artisteId);
+		Artiste artiste = artisteRepository.findByArtisteNom(nomArtiste);
+		if (artiste != null) {
+			return artiste;
+		}
 
+		throw new UsernameNotFoundException("Le user avec le username " + nomArtiste + " n'existe pas");
 	}
+
 
 	/**
 	 * Met à jour un artiste en BDD
-	 * 
-	 * @param artisteId
 	 */
-	public void updateArtiste(Long artisteId, String nomArtiste, String descriptionCourte, String descriptionLongue, String siteWeb,
-			String telephone, String email) {
+	public void updateArtiste(User user, ArtisteUpdateDTO artisteUpdate) {
 
-        String NameArtisteInDatabase = SecurityContextHolder.getContext().getAuthentication().getName();
+        Artiste artiste = artisteRepository.findArtistByUser_Id(user.getId());
 
-        if (NameArtisteInDatabase.equals(nomArtiste)) {
-            Artiste artiste = this.artisteRepository.getOne(artisteId);
-            if (nomArtiste != null) artiste.setArtisteNom(nomArtiste);
-            if (descriptionCourte != null) artiste.setDescriptionCourte(descriptionCourte);
-            if (descriptionLongue != null) artiste.setDescription_longue(descriptionLongue);
-            if (siteWeb != null) artiste.setSiteWeb(siteWeb);
-            if (telephone != null) artiste.setTelephone(telephone);
-            if (email != null) artiste.setEmail(email);
-            this.artisteRepository.saveAndFlush(artiste);
-        }
+		if (artisteUpdate.getArtisteNom() != null) artiste.setArtisteNom(artisteUpdate.getArtisteNom());
+		if (artisteUpdate.getDescriptionCourte() != null) artiste.setDescriptionCourte(artisteUpdate.getDescriptionCourte());
+		if (artisteUpdate.getDescription_longue() != null) artiste.setDescription_longue(artisteUpdate.getDescription_longue());
+		if (artisteUpdate.getSiteWeb() != null) artiste.setSiteWeb(artisteUpdate.getSiteWeb());
+		if (artisteUpdate.getTelephone() != null) artiste.setTelephone(artisteUpdate.getTelephone());
+		if (artisteUpdate.getEmail() != null) artiste.setEmail(artisteUpdate.getEmail());
+		if (artisteUpdate.getDepartementList() != null) artiste.setDepartementList(artisteUpdate.getDepartementList());
+
+		this.artisteRepository.saveAndFlush(artiste);
 
 	}
 

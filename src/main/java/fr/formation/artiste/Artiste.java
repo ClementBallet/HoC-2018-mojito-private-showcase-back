@@ -2,9 +2,6 @@ package fr.formation.artiste;
 
 import javax.persistence.*;
 
-import fr.formation.geo.model.Departement;
-import fr.formation.user.User;
-
 /**
  * @author Clément
  *	Model de la table Artiste
@@ -37,6 +34,9 @@ public class Artiste {
 	
 	@Column(name = "email", nullable = true)
 	private String email;
+
+	@Column(name = "departements", nullable = true)
+	private String[] departementList;
 	
 	/**
 	 * Relation One to One avec User.
@@ -150,6 +150,23 @@ public class Artiste {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	/**
+	 * get departementlist.
+	 * @return
+	 */
+	public String[] getDepartementList() {
+		return departementList;
+	}
+
+	/**
+	 *
+	 * @param departementList
+	 */
+	public void setDepartementList(String[] departementList) {
+		this.departementList = departementList;
+	}
+
 
 //	/**
 //	 * @return the user
