@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.formation.artiste.Artiste;
 import fr.formation.artiste.ArtisteRepository;
+import fr.formation.user.dto.UserUpdateDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,30 +134,34 @@ public class UserService implements UserDetailsService {
 
     /**
      * update user
-     *
-     * @param ancien_password
-     * @param nouveau_password
-     * @param confirm_password
-     * @param email
      */
-    public void updateUser(User user, String ancien_password, String nouveau_password, String confirm_password, String email) {
+    public void updateUser(User user, UserUpdateDTO updateUser) {
 
         String currentPassword = user.getPassword();
         String currentEmail = user.getEmail();
 
-        if (passwordEncoder.matches(ancien_password, currentPassword)) {
-            if (currentEmail.equals(email)) {
-                if (nouveau_password.equals(confirm_password)) {
-                    user.setPassword(passwordEncoder.encode(nouveau_password));
+        if (passwordEncoder.matches(updateUser.getAncien_password(), currentPassword))
+        {
+            if (currentEmail.equals(updateUser.getNouveau_email()))
+            {
+                if (updateUser.getNouveau_password().matches(strRegEx))
+                {
+                    user.setPassword(passwordEncoder.encode(updateUser.getNouveau_password()));
                     userRepository.save(user);
-                } else {
-                    log.info("les deux mots de pass ne sont pas identiques");
                 }
-            } else {
-                log.info("email est invalide");
+                else
+                {
+                    log.info("Le mot de pass ne rempli pas les critères");
+                }
             }
-        } else {
-            log.info("mot de pass actuel invalide");
+            else
+            {
+                log.info("Email est invalide");
+            }
+        }
+        else
+        {
+            log.info("Mot de pass actuel invalide");
         }
     }
 

@@ -1,6 +1,8 @@
 package fr.formation.user;
 
+import fr.formation.controllers.AbstractController;
 import fr.formation.security.SecurityConstants;
+import fr.formation.user.dto.UserUpdateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserController extends AbstractController {
 
     @Autowired
     private UserService userService;
@@ -39,38 +41,29 @@ public class UserController {
     @GetMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
     public User getUser() {
-        return userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        return super.getAuthenticatedUser();
     }
 
     /**
-     * update user.
-     *
-     * @param ancien_password
-     * @param nouveau_password
-     * @param confirm_password
-     * @param email
+     * update user
      */
     @PutMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
-    public void updateUser(@RequestParam String ancien_password,
-                           @RequestParam String nouveau_password,
-                           @RequestParam String confirm_password,
-                           @RequestParam String email) {
+    public void updateUser(@RequestBody(required = true) UserUpdateDTO updateUser) {
 
-        User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        userService.updateUser(user, ancien_password, nouveau_password, confirm_password, email);
+        Assert.notNull(updateUser, "Les champs de mise à jour de l'utilisateur ne peuvent pas être null.");
+
+        userService.updateUser(super.getAuthenticatedUser(), updateUser);
     }
 
     /**
-     * delete user.
-     *
-     * @param username
+     * delete user
      */
     @DeleteMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
     public void deleteUser() {
 
-        User user = userService.getUserByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        User user = super.getAuthenticatedUser();
         userService.deleteUser(user);
     }
 

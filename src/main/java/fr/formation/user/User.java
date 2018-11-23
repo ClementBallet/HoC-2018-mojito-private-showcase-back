@@ -15,7 +15,13 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 3803217955823414799L;
 
-    public User(String username, String password, String email, String ville, String codeVille, String codeDepartement, Artiste artiste) {
+    public User(String username,
+                String password,
+                String email,
+                String ville,
+                String codeVille,
+                String codeDepartement,
+                Artiste artiste) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -195,7 +201,5 @@ public class User implements Serializable {
 	public void setArtiste(Artiste artiste) {
 		this.artiste = artiste;
 	}
-
-
 
 }
