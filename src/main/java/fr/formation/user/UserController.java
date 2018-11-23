@@ -52,7 +52,6 @@ public class UserController extends AbstractController {
     public void updateUser(@RequestBody(required = true) UserUpdateDTO updateUser) {
 
         Assert.notNull(updateUser, "Les champs de mise à jour de l'utilisateur ne peuvent pas être null.");
-
         userService.updateUser(super.getAuthenticatedUser(), updateUser);
     }
 
@@ -62,7 +61,7 @@ public class UserController extends AbstractController {
     @DeleteMapping("/authenticated")
     @Secured(SecurityConstants.ROLE_USER)
     public void deleteUser() {
-
+      
         User user = super.getAuthenticatedUser();
         userService.deleteUser(user);
     }

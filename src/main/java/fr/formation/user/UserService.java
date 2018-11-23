@@ -137,6 +137,7 @@ public class UserService implements UserDetailsService {
      */
     public void updateUser(User user, UserUpdateDTO updateUser) {
 
+
         String currentPassword = user.getPassword();
         String currentEmail = user.getEmail();
 
@@ -153,6 +154,8 @@ public class UserService implements UserDetailsService {
                 {
                     log.info("Le mot de pass ne rempli pas les critères");
                 }
+            } else {
+                log.info("email est invalide");
             }
             else
             {
