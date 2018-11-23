@@ -1,8 +1,10 @@
 package fr.formation.artiste;
 
+import fr.formation.artiste.dto.ArtisteUpdateDTO;
 import fr.formation.controllers.AbstractController;
 import fr.formation.security.SecurityConstants;
 import fr.formation.user.User;
+import fr.formation.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,11 @@ import java.util.List;
  *         l'artiste
  */
 @RestController
-@Secured(SecurityConstants.ROLE_USER)
 @RequestMapping("/artistes")
 public class ArtisteController extends AbstractController {
 
 	private ArtisteService artisteService;
+	private UserService userService;
 
 	@Autowired
 	public ArtisteController(ArtisteService artisteService) {
@@ -57,27 +59,19 @@ public class ArtisteController extends AbstractController {
 	 * @return Artiste
 	 */
 	@GetMapping("/{artisteNom}")
+    @Secured(SecurityConstants.ROLE_USER)
 	public Artiste getArtistByArtistNom(@PathVariable  final String artisteNom) {
 		return artisteService.getArtistByArtistNom(artisteNom);
 	}
 
 	/**s
 	 * Route de l'API de mise à jour d'un artiste
-	 * 
-	 * @param artisteId
 	 */
-	@PutMapping("/{artisteId}")
-	public void updateArtiste(
-			@PathVariable Long artisteId, 
-			@RequestParam(required = false) String nomArtiste,
-			@RequestParam(required = false) String descriptionCourte, 
-			@RequestParam(required = false) String descriptionLongue,
-			@RequestParam(required = false) String siteWeb, 
-			@RequestParam(required = false) String telephone, 
-			@RequestParam(required = false) String email,
-			@RequestParam(required = false) String[] departementList) {
-		artisteService.updateArtiste(artisteId, nomArtiste, descriptionCourte, descriptionLongue, siteWeb, telephone,
-				email, departementList);
+	@PutMapping("/authenticated")
+    @Secured(SecurityConstants.ROLE_USER)
+	public void updateArtiste(@RequestBody(required = true) ArtisteUpdateDTO artisteUpdate) {
+
+        artisteService.updateArtiste(super.getAuthenticatedUser(), artisteUpdate);
 	}
 
 	/**
@@ -86,6 +80,7 @@ public class ArtisteController extends AbstractController {
 	 * @param artisteId
 	 */
 	@DeleteMapping("/{artisteId}")
+    @Secured(SecurityConstants.ROLE_USER)
 	public void deleteArtiste(@PathVariable Long artisteId) {
 		artisteService.deleteArtiste(artisteId);
 	}
